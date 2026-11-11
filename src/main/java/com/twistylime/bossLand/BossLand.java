@@ -161,6 +161,7 @@ public class BossLand extends JavaPlugin implements Listener {
         recipeManager = new BossLandRecipes(this, config, itemManager,config.getRecipeConfiguration("item_recipes"),lootManager);
         bossManager = new BossLandBosses(this, config, itemManager);
         recipeManager.addRecipes(config.getRecipeConfiguration("item_recipes"));
+        recipeManager.disableCrafterRecipes();
         shrinesManager = new BossLandShrines(this,config,itemManager,bossManager,config.getRecipeConfiguration("shrine_recipes"));
 
         checkMaxHealth();
@@ -2889,7 +2890,6 @@ public class BossLand extends JavaPlugin implements Listener {
     public void restrictCrafting(PrepareItemCraftEvent e) {
         CraftingInventory ci = e.getInventory();
         recipeManager.restrictCraftingForBossLandItems(ci);
-        recipeManager.disableCrafterRecipes();
     }
 
     // public ItemStack getHead(String owner, String name) {
