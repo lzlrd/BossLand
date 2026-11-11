@@ -12,6 +12,7 @@ BossLand 2.3 for Paper, Leaf and Spigot 26.3, built against Spigot 26.3 with JDK
 - The Giant's third minion wave spawns; its mount was misspelt `SKELETONE_HORSE`.
 - One crafter listener is registered, not one per crafting-grid change.
 - The update check is off by default, because it follows upstream's releases.
+- `/bossland` and `/bl` typed with no arguments answer with the help hint. Upstream throws an error there.
 
 On Paper and Leaf, bosses with more than 1024 health are capped at 1024 until `settings.attribute.maxHealth.max` in `spigot.yml` is raised to `2048.0`. A `config.yml` written by upstream's 2.3 keeps working.
 

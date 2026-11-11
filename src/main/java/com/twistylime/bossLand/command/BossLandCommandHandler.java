@@ -171,7 +171,7 @@ public class BossLandCommandHandler implements CommandExecutor {
             sender.sendMessage("§cInvalid Command! Use /bl-admin help to see the list of available commands.");
         }
         if ((cmd.getName().equals("bossland")) || (cmd.getName().equals("bl"))){
-            if (args[0].equals("guide") && args.length == 1) {
+            if (args.length == 1 && args[0].equals("guide")) {
                 if (sender instanceof Player) {
                     Player p = (Player)sender;
                     ItemStack guideBook = new ItemStack(Material.WRITTEN_BOOK,1);
@@ -184,7 +184,7 @@ public class BossLandCommandHandler implements CommandExecutor {
                     p.getInventory().addItem(guideBook);
                 }
                 return true;
-            } else if (args[0].equals("help") && args.length == 1) {
+            } else if (args.length == 1 && args[0].equals("help")) {
                 if(sender instanceof Player){
                     sender.sendMessage("§6§lBoss Land §r§bv"+version);
                     sender.sendMessage("§3===============");
@@ -193,7 +193,7 @@ public class BossLandCommandHandler implements CommandExecutor {
                     sender.sendMessage("§8■ §e/bl info §7→ §fShows information about plugin.");
                 }
                 return true;
-            } else if (args[0].equals("info") && args.length == 1) {
+            } else if (args.length == 1 && args[0].equals("info")) {
                 if(sender instanceof Player){
                     String desc = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("BossLand")).getDescription().getDescription();
                     sender.sendMessage("§6§lBoss Land §r§bv"+version);
