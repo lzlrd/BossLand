@@ -5,7 +5,7 @@ skyLevel: 200
 maxKBEnchantLevel: 10
 deathNoteConsumeChance: 10
 update-check:
-  enabled: true
+  enabled: false
   version-url: "https://gist.githubusercontent.com/TwistyLime/334114c49e15e97bcfeea6f724201109/raw/BossLandCurrentVersion.json"
 disabledWorlds:
   - MyTownWorld
