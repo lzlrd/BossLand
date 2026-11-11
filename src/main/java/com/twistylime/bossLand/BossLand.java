@@ -732,7 +732,7 @@ public class BossLand extends JavaPlugin implements Listener {
                                 true);
                         item.setItemMeta(meta);
                         ThrownPotion thrownPotion = (ThrownPotion) ent.getWorld().spawnEntity(dmgr.getLocation(),
-                                CompatibilityResolver.resolveEntityType("POTION", "SPLASH_POTION"));
+                                EntityType.LINGERING_POTION);
                         thrownPotion.setItem(item);
                     }
                     if (UtilityCalc.rand(1, 100) <= c && ent.getHealth() <= maxHealth / 3) {
