@@ -8,7 +8,6 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
@@ -20,10 +19,6 @@ public class CompatibilityResolver {
 
     private static final Logger LOGGER = Logger.getLogger("CompatResolver");
 
-    private static Method setBasePotionTypeMethod = null;
-    private static boolean potionMethodChecked = false;
-    private static Method arrowSetBasePotionTypeMethod = null;
-    private static boolean arrowPotionChecked = false;
     private static Method zombieSetBabyBoolean = null;
     private static Method zombieSetBabyVoid = null;
     private static boolean zombieSetBabyChecked = false;
@@ -80,48 +75,14 @@ public class CompatibilityResolver {
     }
 
     /**
-     * Sets the base potion type on a PotionMeta, compatible across old and new Spigot versions.
+     * Sets the base potion type on a PotionMeta.
      */
     public static void setBasePotion(PotionMeta meta, PotionType type) {
-        if (!potionMethodChecked) {
-            try {
-                setBasePotionTypeMethod = meta.getClass().getMethod("setBasePotionType", PotionType.class);
-            } catch (NoSuchMethodException e) {
-                setBasePotionTypeMethod = null; // fallback will be used
-            }
-            potionMethodChecked = true;
-        }
-
-        try {
-            if (setBasePotionTypeMethod != null) {
-                setBasePotionTypeMethod.invoke(meta, type);
-            } else {
-                meta.setBasePotionData(new PotionData(type));
-            }
-        } catch (Exception e) {
-            LOGGER.warning("Failed to set base potion type: " + e.getMessage());
-        }
+        meta.setBasePotionType(type);
     }
 
     public static void setArrowBasePotionType(Arrow arrow, PotionType type) {
-        if (!arrowPotionChecked) {
-            try {
-                arrowSetBasePotionTypeMethod = arrow.getClass().getMethod("setBasePotionType", PotionType.class);
-            } catch (NoSuchMethodException e) {
-                arrowSetBasePotionTypeMethod = null;
-            }
-            arrowPotionChecked = true;
-        }
-
-        try {
-            if (arrowSetBasePotionTypeMethod != null) {
-                arrowSetBasePotionTypeMethod.invoke(arrow, type);
-            } else {
-                arrow.setBasePotionData(new PotionData(type));
-            }
-        } catch (Exception e) {
-            LOGGER.warning("Failed to apply base potion to arrow: " + e.getMessage());
-        }
+        arrow.setBasePotionType(type);
     }
 
     /**

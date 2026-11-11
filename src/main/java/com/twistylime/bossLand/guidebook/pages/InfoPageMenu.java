@@ -68,7 +68,7 @@ public class InfoPageMenu extends PaginatedMenu {
         creditData.put(ChatColor.GOLD + "" + ChatColor.BOLD + "Plugin Version",
                 List.of(ChatColor.YELLOW + "BossLand v2.3"));
         creditData.put(ChatColor.AQUA + "" + ChatColor.BOLD + "Supported Minecraft Versions",
-                List.of(ChatColor.GREEN + "v1.16.1 - v1.21.5"));
+                List.of(ChatColor.GREEN + "v26.3"));
         creditData.put(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Visit Plugin Page",
                 List.of(ChatColor.WHITE + "MIT License"));
 

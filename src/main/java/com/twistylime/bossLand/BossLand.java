@@ -69,6 +69,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -2130,7 +2131,8 @@ public class BossLand extends JavaPlugin implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onSlimeSplit(SlimeSplitEvent e) {
-        Entity ent = e.getEntity();
+        // Through EntityEvent: SlimeSplitEvent#getEntity returns Slime on Spigot and AbstractCubeMob on Paper.
+        Entity ent = ((EntityEvent) e).getEntity();
         final String bossType = config.getDataFrom("save","bosses." + ent.getUniqueId());
         if (bossType != null) {
             e.setCancelled(true);
