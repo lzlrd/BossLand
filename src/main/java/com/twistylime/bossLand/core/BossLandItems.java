@@ -248,7 +248,7 @@ public class BossLandItems {
                             String levelString = plugin.getConfig().getString("bosses." + bossType + ".loot." + loot + ".enchantments." + j + ".level");
                             int level = UtilityCalc.getIntFromString(levelString);
                             NamespacedKey k = NamespacedKey.minecraft(enchantment.toLowerCase());
-                            if(Enchantment.getByKey(k) == null && enchantment.equals("sweeping")){
+                            if(Enchantment.getByKey(k) == null && enchantment.equalsIgnoreCase("sweeping")){
                                 k = NamespacedKey.minecraft(("sweeping_edge"));
                             }
                             if (Enchantment.getByKey(k) != null) {
@@ -257,7 +257,7 @@ public class BossLandItems {
                                     level = 1;
                                 }
                                 LevelledEnchantment le = new LevelledEnchantment(
-                                        Enchantment.getByKey(NamespacedKey.minecraft(enchantment.toLowerCase())),
+                                        Enchantment.getByKey(k),
                                         level);
 
                                 boolean con = false;

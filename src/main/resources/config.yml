@@ -310,7 +310,7 @@ bosses:
             level: 5-15
             chance: 33
           '4':
-            enchantment: sweeping
+            enchantment: sweeping_edge
             level: 5-15
             chance: 25
           '5':
@@ -1101,7 +1101,7 @@ bosses:
             enchantment: looting
             level: 15-25
           '7':
-            enchantment: sweeping
+            enchantment: sweeping_edge
             level: 15-25
           '8':
             enchantment: mending
