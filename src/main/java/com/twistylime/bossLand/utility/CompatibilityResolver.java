@@ -121,7 +121,7 @@ public class CompatibilityResolver {
     private static Object resolveField(Class<?> clazz, String... fieldNames) {
         for (String name : fieldNames) {
             try {
-                Field field = clazz.getField(name);
+                Field field = clazz.getField(name.toUpperCase(Locale.ROOT));
                 return field.get(null); // static field
             } catch (NoSuchFieldException ignored) {
             } catch (IllegalAccessException e) {
