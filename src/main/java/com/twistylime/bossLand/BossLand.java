@@ -516,11 +516,11 @@ public class BossLand extends JavaPlugin implements Listener {
                 for (String pn : (ArrayList<String>) Objects
                         .requireNonNull(getConfig().getList("bosses." + bossType + ".hurtPotions"))) {
                     String[] split = pn.split(":");
-                    if (PotionEffectType.getByName(split[0]) != null) {
+                    if (CompatibilityResolver.resolveConfigPotionEffect(split[0]) != null) {
                         if (split[0].equalsIgnoreCase("FIRE")) {
                             dmgr.setFireTicks(Integer.parseInt(split[2]) * 20);
                         } else
-                            dmgr.addPotionEffect(new PotionEffect(Objects.requireNonNull(PotionEffectType.getByName(split[0])),
+                            dmgr.addPotionEffect(new PotionEffect(Objects.requireNonNull(CompatibilityResolver.resolveConfigPotionEffect(split[0])),
                                     Integer.parseInt(split[2]) * 20, Integer.parseInt(split[1]) - 1));
                     }
                 }
@@ -697,7 +697,7 @@ public class BossLand extends JavaPlugin implements Listener {
                         assert pots != null;
                         String[] s = pots.get(UtilityCalc.rand(1, pots.size()) - 1).split(":");
                         meta.addCustomEffect(
-                                new PotionEffect(Objects.requireNonNull(PotionEffectType.getByName(s[0])), 10 * 20, Integer.parseInt(s[1])),
+                                new PotionEffect(Objects.requireNonNull(CompatibilityResolver.resolveConfigPotionEffect(s[0])), 10 * 20, Integer.parseInt(s[1])),
                                 true);
                         item.setItemMeta(meta);
                         ThrownPotion thrownPotion = ent.launchProjectile(ThrownPotion.class);
@@ -728,7 +728,7 @@ public class BossLand extends JavaPlugin implements Listener {
                         assert pots != null;
                         String[] s = pots.get(UtilityCalc.rand(1, pots.size()) - 1).split(":");
                         meta.addCustomEffect(
-                                new PotionEffect(Objects.requireNonNull(PotionEffectType.getByName(s[0])), 10 * 20, Integer.parseInt(s[1])),
+                                new PotionEffect(Objects.requireNonNull(CompatibilityResolver.resolveConfigPotionEffect(s[0])), 10 * 20, Integer.parseInt(s[1])),
                                 true);
                         item.setItemMeta(meta);
                         ThrownPotion thrownPotion = (ThrownPotion) ent.getWorld().spawnEntity(dmgr.getLocation(),
@@ -1367,7 +1367,7 @@ public class BossLand extends JavaPlugin implements Listener {
         // Do Particles
         String part = switch (type) {
             case "wind" -> "CLOUD:0:5:0.6";
-            case "dark" -> "SMOKE_LARGE:0:5:0.7";
+            case "dark" -> "LARGE_SMOKE:0:5:0.7";
             case "fire" -> "FLAME:0:5:0.7";
             default -> "DRAGON_BREATH:0:5:0.6";
         };
@@ -2211,7 +2211,7 @@ public class BossLand extends JavaPlugin implements Listener {
             } else if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName()
                     .equals(getBossItemName("PharaohGod", 1))) {
                 Projectile f = p.launchProjectile(LargeFireball.class);
-                MCUtility.makeTrail(plugin,f, "SMOKE_LARGE:0:4:0.2");
+                MCUtility.makeTrail(plugin,f, "LARGE_SMOKE:0:4:0.2");
                 cool(p.getUniqueId());
             } else if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName()
                     .equals(getBossItemName("AetherGod", 1))) {

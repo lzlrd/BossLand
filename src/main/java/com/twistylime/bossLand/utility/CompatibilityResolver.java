@@ -1,6 +1,7 @@
 package com.twistylime.bossLand.utility;
 
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
@@ -13,11 +14,32 @@ import org.bukkit.potion.PotionType;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class CompatibilityResolver {
 
     private static final Logger LOGGER = Logger.getLogger("CompatResolver");
+
+    // Particle names the default config used before 1.20.5 renamed them.
+    private static final Map<String, String> LEGACY_PARTICLES = Map.of(
+            "SMOKE_NORMAL", "SMOKE",
+            "SMOKE_LARGE", "LARGE_SMOKE",
+            "SLIME", "ITEM_SLIME",
+            "CRIT_MAGIC", "ENCHANTED_HIT",
+            "SPELL_MOB", "ENTITY_EFFECT",
+            "EXPLOSION_LARGE", "EXPLOSION",
+            "WATER_SPLASH", "SPLASH");
+    private static final Map<String, Optional<Particle>> CONFIG_PARTICLES = new HashMap<>();
+    // Potion effect names the default config used before 1.20.5 renamed them.
+    private static final Map<String, String> LEGACY_POTION_EFFECTS = Map.of(
+            "SLOW", "SLOWNESS",
+            "JUMP", "JUMP_BOOST",
+            "CONFUSION", "NAUSEA",
+            "HARM", "INSTANT_DAMAGE");
 
     private static Method zombieSetBabyBoolean = null;
     private static Method zombieSetBabyVoid = null;
@@ -41,6 +63,15 @@ public class CompatibilityResolver {
         return (PotionEffectType) resolveField(PotionEffectType.class, fieldNames);
     }
 
+    /**
+     * Resolves a potion effect name from the config, including names from configs written before 1.20.5.
+     * Returns null for a name that is not a potion effect, such as the config's FIRE.
+     */
+    public static PotionEffectType resolveConfigPotionEffect(String name) {
+        String key = name.toUpperCase(Locale.ROOT);
+        return PotionEffectType.getByKey(NamespacedKey.fromString(LEGACY_POTION_EFFECTS.getOrDefault(key, key).toLowerCase(Locale.ROOT)));
+    }
+
     public static PotionType resolvePotionTypeEffect(String... fieldNames) {
         return (PotionType) resolveField(PotionType.class, fieldNames);
     }
@@ -51,6 +82,17 @@ public class CompatibilityResolver {
 
     public static Particle resolveParticle(String... fieldNames) {
         return (Particle) resolveField(Particle.class, fieldNames);
+    }
+
+    /**
+     * Resolves a particle name from the config, including names from configs written before 1.20.5.
+     * Returns null, after a single warning, for a name that is unknown.
+     */
+    public static Particle resolveConfigParticle(String name) {
+        return CONFIG_PARTICLES.computeIfAbsent(name, n -> {
+            String key = n.toUpperCase(Locale.ROOT);
+            return Optional.ofNullable(resolveParticle(LEGACY_PARTICLES.getOrDefault(key, key)));
+        }).orElse(null);
     }
 
     public static Material resolveMaterial(String... fieldNames) {
