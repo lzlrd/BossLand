@@ -941,7 +941,9 @@ public class BossLand extends JavaPlugin implements Listener {
                         }
                         if (UtilityCalc.rand(1, 100) <= c) {
                             Arrow a = ent.launchProjectile(Arrow.class);
-                            a.setKnockbackStrength(5);
+                            ItemStack punchBow = new ItemStack(Material.BOW);
+                            punchBow.addUnsafeEnchantment(Enchantment.PUNCH, 5);
+                            a.setWeapon(punchBow);
                             MCUtility.moveToward(plugin,a, dmgr, 0.7);
                             MCUtility.makeTrail(plugin,a, getConfig().getString("bosses." + bossType + ".attackParticle2"));
                         }
