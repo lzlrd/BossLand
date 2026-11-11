@@ -1,5 +1,5 @@
 name: BossLand
-version: '2.3-26.3'
+version: '2.3-26.3-r2'
 main: com.twistylime.bossLand.BossLand
 api-version: '26.3'
 author: TwistyLime / Eliminator

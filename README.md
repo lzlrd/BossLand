@@ -16,7 +16,7 @@ BossLand 2.3 for Paper, Leaf and Spigot 26.3, built against Spigot 26.3 with JDK
 
 On Paper and Leaf, bosses with more than 1024 health are capped at 1024 until `settings.attribute.maxHealth.max` in `spigot.yml` is raised to `2048.0`. A `config.yml` written by upstream's 2.3 keeps working.
 
-Download `bossland-2.3-26.3.jar` from [Releases](https://github.com/lzlrd/BossLand/releases), or build with JDK 25: `mvn package`, then take `target/bossland-2.3-26.3.jar`.
+Download `bossland-2.3-26.3-r2.jar` from [Releases](https://github.com/lzlrd/BossLand/releases), or build with JDK 25: `mvn package`, then take `target/bossland-2.3-26.3-r2.jar`.
 
 ## Overview
 
@@ -34,7 +34,7 @@ This continuation aims to maintain the original vision while updating compatibil
 
 | Minecraft Version | BossLand Version          | Download Link                                                                                                                  | Notes                                                      |
 |-------------------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| 26.3              | 2.3                       | [Download 2.3-26.3](https://github.com/lzlrd/BossLand/releases/download/2.3-26.3/bossland-2.3-26.3.jar)                        | This fork: v2.3 ported to Minecraft 26.3                   |
+| 26.3              | 2.3                       | [Download 2.3-26.3-r2](https://github.com/lzlrd/BossLand/releases/download/2.3-26.3-r2/bossland-2.3-26.3-r2.jar)                        | This fork: v2.3 ported to Minecraft 26.3                   |
 | 1.16.1 - 1.21.5   | 2.3                       | [Download v2.3](https://github.com/TwistyLime/BossLand/releases/download/v2.3-v1.16.1-v1.21.5/bossland2.3-v1.16.1-v1.21.5.jar) | New Guide Book and Shard Effects added and bugs fixed      |
 | 1.16.1 - 1.21.5   | 2.2                       | [Download v2.2](https://github.com/TwistyLime/BossLand/releases/download/v2.2-v1.16.1-v1.21.5/bossland2.2-v1.16.1-v1.21.5.jar) | Compatible throughout 1.16.1 uptill 1.21.5 with bugs fixed |
 | 1.21.3            | 2.1                       | [Download v2.1](https://github.com/TwistyLime/BossLand/releases/download/v2.1-1.21.3/bossland2-0-2.1.jar)                      | Updated for 1.21.3 with new API and support                |
