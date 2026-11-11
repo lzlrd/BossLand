@@ -1,5 +1,22 @@
 # BossLand v2.3 - v1.16.1-v1.21.5
 
+## This fork
+
+BossLand 2.3 for Paper, Leaf and Spigot 26.3, built against Spigot 26.3 with JDK 25. Upstream's 2.3 covers 1.16.1 to 1.21.5; this build runs on 26.3 only. Changes from upstream:
+
+- Shrines and fruits that need a biome summon again. Biomes are matched by key, so data pack biomes count: a `desert_canyon` is a desert.
+- The Illager King's and Death's particles no longer throw. `config.yml` uses the current particle, potion effect and enchantment names, and still reads the old ones.
+- The tornado attack works under the default 1024 health cap.
+- The Illager King's potion lingers, the Aether God's arrow knocks back and the Devil's book hits with Sharpness.
+- The Book of Knowledge adds and removes enchantments again, and Sweeping Edge can roll on loot.
+- The Giant's third minion wave spawns; its mount was misspelt `SKELETONE_HORSE`.
+- One crafter listener is registered, not one per crafting-grid change.
+- The update check is off by default, because it follows upstream's releases.
+
+On Paper and Leaf, bosses with more than 1024 health are capped at 1024 until `settings.attribute.maxHealth.max` in `spigot.yml` is raised to `2048.0`. A `config.yml` written by upstream's 2.3 keeps working.
+
+Download `bossland-2.3-26.3.jar` from [Releases](https://github.com/lzlrd/BossLand/releases), or build with JDK 25: `mvn package`, then take `target/bossland-2.3-26.3.jar`.
+
 ## Overview
 
 BossLand is a comprehensive Minecraft plugin that extends vanilla gameplay by adding **15 unique custom bosses** across multiple tiers. Originally created by **Eliminator** and discontinued after Minecraft 1.19, this project continues the development to bring enhanced boss combat experiences to modern Minecraft versions.
@@ -16,6 +33,7 @@ This continuation aims to maintain the original vision while updating compatibil
 
 | Minecraft Version | BossLand Version          | Download Link                                                                                                                  | Notes                                                      |
 |-------------------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| 26.3              | 2.3                       | [Download 2.3-26.3](https://github.com/lzlrd/BossLand/releases/download/2.3-26.3/bossland-2.3-26.3.jar)                        | This fork: v2.3 ported to Minecraft 26.3                   |
 | 1.16.1 - 1.21.5   | 2.3                       | [Download v2.3](https://github.com/TwistyLime/BossLand/releases/download/v2.3-v1.16.1-v1.21.5/bossland2.3-v1.16.1-v1.21.5.jar) | New Guide Book and Shard Effects added and bugs fixed      |
 | 1.16.1 - 1.21.5   | 2.2                       | [Download v2.2](https://github.com/TwistyLime/BossLand/releases/download/v2.2-v1.16.1-v1.21.5/bossland2.2-v1.16.1-v1.21.5.jar) | Compatible throughout 1.16.1 uptill 1.21.5 with bugs fixed |
 | 1.21.3            | 2.1                       | [Download v2.1](https://github.com/TwistyLime/BossLand/releases/download/v2.1-1.21.3/bossland2-0-2.1.jar)                      | Updated for 1.21.3 with new API and support                |
@@ -115,13 +133,13 @@ Ultimate endgame encounters:
 
 ## Dependencies
 
-- **Required:** Spigot/Paper 1.16+
+- **Required:** Paper, Leaf or Spigot 26.3, on Java 25
 - **Optional:** WorldGuard (for region protection)
 
 ## Technical Details
 
 - **Main Class:** `com.twistylime.BossLand.BossLand`
-- **API Version:** 1.16+
+- **API Version:** 26.3
 - **Plugin Architecture:** Event-driven boss management system
 - **Data Storage:** YAML configuration files
 
