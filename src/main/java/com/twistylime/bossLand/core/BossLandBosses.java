@@ -15,6 +15,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -173,7 +174,10 @@ public class BossLandBosses {
                 ItemStack head = SkullCreator.getSkull(
                         "http://textures.minecraft.net/texture/9da39269ef45f825ec61bb4f8aa09bd3cf07996fb6fac338a6e91d6699ae425");
                 ItemStack hand = new ItemStack(Material.ENCHANTED_BOOK);
-                hand.addUnsafeEnchantment(CompatibilityResolver.resolveEnchantment("DAMAGE_ALL","SHARPNESS"), 999);
+                // Through the meta, so the book hits with Sharpness; addUnsafeEnchantment would only store it on Paper.
+                ItemMeta handMeta = hand.getItemMeta();
+                handMeta.addEnchant(CompatibilityResolver.resolveEnchantment("DAMAGE_ALL","SHARPNESS"), 999, true);
+                hand.setItemMeta(handMeta);
                 EntityEquipment ee = ((LivingEntity) boss).getEquipment();
                 ee.setItemInMainHandDropChance(0.0F);
                 ee.setHelmet(head);
