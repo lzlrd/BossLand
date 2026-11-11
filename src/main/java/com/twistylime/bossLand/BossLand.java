@@ -85,6 +85,7 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -2332,6 +2333,14 @@ public class BossLand extends JavaPlugin implements Listener {
         p.openInventory(inv);
     }
 
+    // addUnsafeEnchantment on an enchanted book stores the enchantment on Paper and applies it on Spigot.
+    private Map<Enchantment, Integer> getBookEnchantments(ItemStack book) {
+        Map<Enchantment, Integer> enchantments = new HashMap<>(book.getEnchantments());
+        if (book.getItemMeta() instanceof EnchantmentStorageMeta meta)
+            enchantments.putAll(meta.getStoredEnchants());
+        return enchantments;
+    }
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerClickInv(InventoryClickEvent e) {
         String name = e.getView().getTitle();
@@ -2380,7 +2389,7 @@ public class BossLand extends JavaPlugin implements Listener {
 //                            s.addUnsafeEnchantment(hm.getKey(), lvl);
 //                        }
 
-                        for (Map.Entry<Enchantment, Integer> hm : e.getCurrentItem().getEnchantments().entrySet()){
+                        for (Map.Entry<Enchantment, Integer> hm : getBookEnchantments(e.getCurrentItem()).entrySet()){
                             s.addUnsafeEnchantment(hm.getKey(), lvl);
                         }
                     } else {
@@ -2399,7 +2408,7 @@ public class BossLand extends JavaPlugin implements Listener {
 //                        s.removeEnchantment(hm.getKey());
 //                    }
 
-                    for (Map.Entry<Enchantment, Integer> hm : e.getCurrentItem().getEnchantments().entrySet()){
+                    for (Map.Entry<Enchantment, Integer> hm : getBookEnchantments(e.getCurrentItem()).entrySet()){
                         s.removeEnchantment(hm.getKey());
                     }
 
