@@ -287,10 +287,11 @@ public class MCUtility {
         Particle particle = CompatibilityResolver.resolveConfigParticle(effect);
         if (particle == null)
             return;
+        Object data = CompatibilityResolver.particleData(particle);
         try {
             if (radius <= 0) {
-                // Effect, Location, Count, X, Y, Z, Speed
-                w.spawnParticle(particle, l, amount, 0, 0, 0, speed);
+                // Effect, Location, Count, X, Y, Z, Speed, Data
+                w.spawnParticle(particle, l, amount, 0, 0, 0, speed, data);
                 // w.spawnParticle(Particle.valueOf(effect), l, 0, 0, 0, speed, amount);
             } else {
                 List<Location> ll = MCUtility.getArea(l, radius, 0.2);
@@ -298,7 +299,7 @@ public class MCUtility {
                     for (int i = 0; i < amount; i++) {
                         int index = new Random().nextInt(ll.size());
                         // w.spawnParticle(Particle.valueOf(effect), ll.get(index), 1, 0, 0, speed, 1);
-                        w.spawnParticle(particle, ll.get(index), amount, 0, 0, 0, speed);
+                        w.spawnParticle(particle, ll.get(index), amount, 0, 0, 0, speed, data);
                         ll.remove(index);
                     }
                 }

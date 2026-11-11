@@ -1,5 +1,6 @@
 package com.twistylime.bossLand.utility;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
@@ -86,13 +87,28 @@ public class CompatibilityResolver {
 
     /**
      * Resolves a particle name from the config, including names from configs written before 1.20.5.
-     * Returns null, after a single warning, for a name that is unknown.
+     * Returns null, after a single warning, for a name that is unknown or needs data BossLand cannot supply.
      */
     public static Particle resolveConfigParticle(String name) {
         return CONFIG_PARTICLES.computeIfAbsent(name, n -> {
             String key = n.toUpperCase(Locale.ROOT);
-            return Optional.ofNullable(resolveParticle(LEGACY_PARTICLES.getOrDefault(key, key)));
+            Particle particle = resolveParticle(LEGACY_PARTICLES.getOrDefault(key, key));
+            if (particle != null && particle.getDataType() != Void.class && particleData(particle) == null) {
+                LOGGER.warning("Particle '" + n + "' needs " + particle.getDataType().getSimpleName() + " data and cannot be used");
+                particle = null;
+            }
+            return Optional.ofNullable(particle);
         }).orElse(null);
+    }
+
+    /**
+     * Default data for the particles that cannot be spawned without any, or null if there is none.
+     */
+    public static Object particleData(Particle particle) {
+        Class<?> type = particle.getDataType();
+        if (type == Color.class) return Color.BLACK; // ENTITY_EFFECT, black as SPELL_MOB was at speed 0
+        if (type == Float.class) return 1.0f; // DRAGON_BREATH power
+        return null;
     }
 
     public static Material resolveMaterial(String... fieldNames) {
