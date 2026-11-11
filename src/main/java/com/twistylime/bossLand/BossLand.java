@@ -1285,8 +1285,9 @@ public class BossLand extends JavaPlugin implements Listener {
     private void spawnTornado(Location l, LivingEntity target, int dmg, String type) {
         LivingEntity bat = (LivingEntity) Objects.requireNonNull(l.getWorld()).spawnEntity(l, EntityType.BAT);
         bat.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999 * 999, 1));
-        Objects.requireNonNull(bat.getAttribute(CompatibilityResolver.resolveAttribute("MAX_HEALTH", "GENERIC_MAX_HEALTH"))).setBaseValue(2000);
-        bat.setHealth(2000);
+        AttributeInstance batHealth = Objects.requireNonNull(bat.getAttribute(CompatibilityResolver.resolveAttribute("MAX_HEALTH", "GENERIC_MAX_HEALTH")));
+        batHealth.setBaseValue(2000);
+        bat.setHealth(batHealth.getValue());
         moveTowardConstant(bat, target, 0.2);
         MCUtility.boomTimer(plugin,bat, 30);
         tornadoEffect(bat, target, dmg, type);
