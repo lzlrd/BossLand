@@ -2553,7 +2553,8 @@ public class BossLand extends JavaPlugin implements Listener {
                 p.getWorld().strikeLightning(p.getLocation());
                 // Biome
                 final Location l = p.getLocation();
-                if (Objects.requireNonNull(l.getWorld()).getBiome((int) l.getX(), (int) l.getY(), (int) l.getZ()).toString().contains("OCEAN")
+                final String biome = CompatibilityResolver.resolveBiomeName(l);
+                if (biome.contains("OCEAN")
                         && l.getBlockY() <= getConfig().getInt("waterLevel")) {
                     MCUtility.takeItem(p, 1);
                     MCUtility.boom(this,l, 3, false);
@@ -2567,8 +2568,7 @@ public class BossLand extends JavaPlugin implements Listener {
                     l.setY(l.getY() + 5);
                     p.sendMessage(config.getLang("aetherSpawn"));
                     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, () -> bossManager.spawnBoss(p, l, "AetherGod"), (40));
-                } else if (l.getWorld().getBiome((int) l.getX(), (int) l.getY(), (int) l.getZ()).toString()
-                        .contains("DESERT")) {
+                } else if (biome.contains("DESERT")) {
                     MCUtility.takeItem(p, 1);
                     // boom(l,2,false);
                     MCUtility.lightningShow(plugin,l, 4);

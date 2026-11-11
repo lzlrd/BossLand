@@ -1,6 +1,7 @@
 package com.twistylime.bossLand.utility;
 
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
@@ -113,6 +114,14 @@ public class CompatibilityResolver {
 
     public static Material resolveMaterial(String... fieldNames) {
         return (Material) resolveField(Material.class, fieldNames);
+    }
+
+    /**
+     * Upper-case biome key at a location, without its namespace, e.g. "SNOWY_PLAINS".
+     * Biome#toString no longer returns the enum-style name, and data pack biomes never had one.
+     */
+    public static String resolveBiomeName(Location location) {
+        return location.getBlock().getBiome().getKey().getKey().toUpperCase(Locale.ROOT);
     }
 
     /**

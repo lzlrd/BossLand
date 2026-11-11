@@ -197,7 +197,7 @@ public class BossLandShrines {
         try {
             assert e.getClickedBlock() != null;
             Location l = e.getClickedBlock().getLocation();
-            String biome = Objects.requireNonNull(l.getWorld()).getBiome((int) l.getX(), (int) l.getY(), (int) l.getZ()).toString();
+            String biome = CompatibilityResolver.resolveBiomeName(l);
             // Boss Rituals
             if (p.getInventory().getItemInMainHand().getType().equals(Material.ENDER_EYE)
                     && Objects.requireNonNull(l.getWorld()).getEnvironment().equals(World.Environment.NORMAL) && biome.contains("SWAMP")) {
@@ -279,8 +279,7 @@ public class BossLandShrines {
                 }
             } else if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName()
                     .equals("§2§lPotion of Giant Growth") && Objects.requireNonNull(l.getWorld()).getEnvironment().equals(World.Environment.NORMAL)
-                    && (l.getWorld().getBiome((int) l.getX(), (int) l.getY(), (int) l.getZ()).toString()
-                    .contains("PLAINS"))) {
+                    && (biome.contains("PLAINS"))) {
                 if (checkBlockRecipe(l, "REDSTONE_TORCH:REDSTONE_WIRE:REDSTONE_TORCH",
                         "REDSTONE_WIRE:CAMPFIRE:REDSTONE_WIRE", "REDSTONE_TORCH:REDSTONE_WIRE:REDSTONE_TORCH", true)) {
                     e.setCancelled(true);
@@ -325,7 +324,7 @@ public class BossLandShrines {
                     && p.getInventory().getItemInMainHand().getAmount() >= 16) {
                 // this.getLogger().log(Level.WARNING, "Gold Consumed!");
                 // l.setY(l.getY()+1);
-                if (Objects.requireNonNull(l.getWorld()).getBiome((int) l.getX(), (int) l.getY(), (int) l.getZ()).toString().contains("DESERT"))
+                if (biome.contains("DESERT"))
                     if (l.getWorld().getEnvironment().equals(World.Environment.NORMAL)
                             && checkBlockRecipe(l, "CARROTS:CARROTS:CARROTS", "CARROTS:MAGMA_BLOCK:CARROTS",
                             "CARROTS:CARROTS:CARROTS", false)) {
